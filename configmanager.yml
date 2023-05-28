@@ -1,5 +1,5 @@
 - name: "Execute config managemnt using Ansible"
-  hosts: "{{ groups['webservice'][0] }}"
+  hosts: "{{ groups['ec2'][0] }}"
   become: true
   tasks:
     - name: "Copy nice-scripts.sh to skel dir in order to each new user created having nice-scripts.sh in its home directory"
@@ -10,7 +10,7 @@
 
 - name: "Creates user john"
   become: true
-  hosts: "{{ groups['webservice'][0] }}"
+  hosts: "{{ groups['ec2'][0] }}"
   remote_user: ubuntu
   tasks: 
     - name: "Creating the user john"
@@ -26,7 +26,7 @@
 
 - name: "Disabling sudo password requirement for whoami"
   become: true
-  hosts: "{{ groups['webservice'][0] }}"
+  hosts: "{{ groups['ec2'][0] }}"
   remote_user: ubuntu
   tasks:
     - name: "Disabling sudo password requirement for whoami command"
@@ -39,7 +39,7 @@
 
 - name: "Install Packages"
   become: true
-  hosts: "{{ groups['webservice'][0] }}"
+  hosts: "{{ groups['ec2'][0] }}"
   remote_user: ubuntu
   tasks:
     - name: "Installing Tmux"
@@ -53,7 +53,7 @@
 
 - name: "Install Terraform"
   become: true
-  hosts: "{{ groups['webservice'][0] }}"
+  hosts: "{{ groups['ec2'][0] }}"
   remote_user: ubuntu
   tasks:
     - name: "Installing unzip"

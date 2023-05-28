@@ -56,7 +56,7 @@
       ansible.builtin.lineinfile:
         path: "{{hostspath}}"
         state: present
-        insertafter: '[webservice]'
+        insertafter: '[ec2]'
         line: "{{ item.public_ip_address }} {{ ansible_host_string }}"
       with_items: "{{ ec2_instances.results[0].instances }}"
 

@@ -17,9 +17,9 @@ After that, make sure that you have amazon.aws collection installed, in order to
 [local]
 localhost
 
-[webservice]
+[ec2]
 
-It doesn't have to be like the example above, but the playbook will look for the tag [webservice] in order to put the newly created EC2 instance in the hosts file.
+It doesn't have to be like the example above, but the playbook will look for the tag [ec2] in order to put the newly created EC2 instance in the hosts file.
 
 To run the createEC2Instance you use the following command : `ansible-playbook -K createEC2Instance.yml`
 
