@@ -30,4 +30,4 @@ Now, for the following part, we have configmanager playbook, which is responsibl
 
 User john have no password, so in order to change to john user after connecting to your remote machine, just use su john and it's done.
 
-To run the configmanager playbook just run `ansible-playbook configmanager.yml
+To run the configmanager playbook just run `ansible-playbook configmanager.yml`
