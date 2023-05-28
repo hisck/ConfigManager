@@ -21,7 +21,7 @@ localhost
 
 It doesn't have to be like the example above, but the playbook will look for the tag [ec2] in order to put the newly created EC2 instance in the hosts file.
 
-To run the createEC2Instance you use the following command : `ansible-playbook -K createEC2Instance.yml`
+Also, you must make sure that your default security group have ssh permissions. After that, you are able to run the createEC2Instance by using the following command : `ansible-playbook -K createEC2Instance.yml`
 
 Now, for the following part, we have configmanager playbook, which is responsible for
 - Copying the script nice-script.sh, that contains the command to list all mounted filesystems, to the remote machine into /etc/skel
