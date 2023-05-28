@@ -1,0 +1,27 @@
+- name: "ec2 Instance launcher"
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  vars:
+    region: us-east-1
+    instance_type: t2.micro
+    keypair: Ansible # pem file name
+    ec2name: AnsibleInstance
+    networkDict: {
+                    'assign_public_ip'  : true,
+                    'subnet_id'         : 'subnet-02bb40087654b6b37'
+                  }
+  
+  tasks:
+    - name: "Launching ec2 Instance"
+      amazon.aws.ec2_instance:
+        key_name: "{{ keypair }}"
+        security_group: default
+        instance_type: "{{ instance_type }}"
+        image_id: ami-053b0d53c279acc90
+        wait: true
+        region: "{{ region }}"
+        count: 1  # default
+        name: "{{ ec2name }}"
+        network: "{{networkDict}}"

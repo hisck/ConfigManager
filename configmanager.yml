@@ -1,0 +1,68 @@
+- name: "Execute config managemnt using Ansible"
+  hosts: 3.90.21.71
+  become: true
+  tasks:
+    - name: "Copy nice-scripts.sh to skel dir in order to each new user created having nice-scripts.sh in its home directory"
+      ansible.builtin.copy:
+        src: nice-script.sh
+        dest: /etc/skel
+        mode: '0777'
+
+- name: "Creates user john"
+  become: true
+  hosts: 3.90.21.71
+  remote_user: ubuntu
+  tasks: 
+    - name: "Creating the user john"
+      ansible.builtin.user:
+        name: john
+        password: ''
+        uid: 1234
+        shell: /bin/bash
+        groups: sudo
+        append: true
+        create_home: true
+        home: /better-place/john
+
+- name: "Disabling sudo password requirement for whoami"
+  become: true
+  hosts: 3.90.21.71
+  remote_user: ubuntu
+  tasks:
+    - name: "Disabling sudo password requirement for whoami command"
+      ansible.builtin.lineinfile:
+        path: /etc/sudoers
+        state: present
+        insertbefore: '@includedir'
+        line: 'john ALL = NOPASSWD: /bin/whoami'
+        validate: 'visudo -cf %s'
+
+- name: "Install Packages"
+  become: true
+  hosts: 3.90.21.71
+  remote_user: ubuntu
+  tasks:
+    - name: "Installing Tmux"
+      ansible.builtin.package:
+        name: tmux
+        state: present
+    - name: "Installing vim"
+      ansible.builtin.package:
+        name: vim
+        state: present
+
+- name: "Install Terraform"
+  become: true
+  hosts: 3.90.21.71
+  remote_user: ubuntu
+  tasks:
+    - name: "Installing unzip"
+      ansible.builtin.package:
+        name: unzip
+        state: present
+    - name: "Installing TerraForm"
+      ansible.builtin.unarchive:
+        src: https://releases.hashicorp.com/terraform/1.4.6/terraform_1.4.6_linux_amd64.zip
+        dest: /usr/bin
+        remote_src: true
+
